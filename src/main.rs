@@ -5,9 +5,9 @@ use actix_web::{
     Responder, Result,
 };
 use derive_more::{Display, Error};
+use soht::database::{build_database, get_connection_pool, initialize_tables, insert_content};
+use soht::splitter::split_ontology;
 use sqlx::SqlitePool;
-use tecolote::database::{build_database, get_connection_pool, initialize_tables, insert_content};
-use tecolote::splitter::split_ontology;
 #[derive(Debug, Display, Error)]
 #[display(fmt = "Not found")]
 struct NotFoundError;
@@ -28,7 +28,7 @@ pub struct Application {
 }
 
 struct Content {
-    name: String,
+    _name: String,
     content: Vec<u8>,
 }
 
@@ -57,7 +57,7 @@ async fn query_content(pool: &SqlitePool, base: &str) -> Result<Option<Content>,
     .fetch_optional(pool)
     .await?;
     Ok(result.map(|r| Content {
-        name: r.name,
+        _name: r.name,
         content: r.content,
     }))
 }
