@@ -1,0 +1,9 @@
+/target
+sqlite.db
+sqlite.db-wal
+sqlite.db-shm
+/serialized
+/.sqlx
+/ontology
+.DS_Store
+Cargo.lock
